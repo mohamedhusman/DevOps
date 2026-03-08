@@ -1,0 +1,25 @@
+name: CI Pipeline
+
+# The reason we mention on push branches is to trigger the pipeline whenever there is a push to the main branch. This allows us to automatically run our tests and build processes whenever we make changes to our codebase, ensuring that our code is always in a deployable state.
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout code
+        uses: actions/checkout@V5
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
